@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lightninglabs/neutrino/banman"
+	"github.com/picfight/pfcneutrino/banman"
 	"github.com/picfight/pfcwallet/walletdb"
 	_ "github.com/picfight/pfcwallet/walletdb/bdb"
 )

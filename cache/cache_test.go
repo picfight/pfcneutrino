@@ -4,11 +4,11 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"github.com/lightninglabs/neutrino/cache"
-	"github.com/lightninglabs/neutrino/cache/lru"
-	"github.com/lightninglabs/neutrino/filterdb"
 	"github.com/picfight/pfcd/chaincfg/chainhash"
 	"github.com/picfight/pfcd/wire"
+	"github.com/picfight/pfcneutrino/cache"
+	"github.com/picfight/pfcneutrino/cache/lru"
+	"github.com/picfight/pfcneutrino/filterdb"
 	"github.com/picfight/pfcutil"
 	"github.com/picfight/pfcutil/gcs"
 )

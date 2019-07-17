@@ -4,8 +4,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/lightninglabs/neutrino/blockntfns"
 	"github.com/picfight/pfcd/wire"
+	"github.com/picfight/pfcneutrino/blockntfns"
 )
 
 // createTx is a helper method to create random transactions that spend

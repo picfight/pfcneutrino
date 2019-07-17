@@ -15,7 +15,6 @@ import (
 	"time"
 
 	"github.com/btcsuite/btclog"
-	"github.com/lightninglabs/neutrino/banman"
 	"github.com/picfight/pfcd/chaincfg"
 	"github.com/picfight/pfcd/chaincfg/chainhash"
 	"github.com/picfight/pfcd/integration/rpctest"
@@ -25,6 +24,7 @@ import (
 	"github.com/picfight/pfcd/txscript"
 	"github.com/picfight/pfcd/wire"
 	"github.com/picfight/pfcneutrino"
+	"github.com/picfight/pfcneutrino/banman"
 	"github.com/picfight/pfcutil"
 	"github.com/picfight/pfcutil/gcs/builder"
 	"github.com/picfight/pfcwallet/waddrmgr"

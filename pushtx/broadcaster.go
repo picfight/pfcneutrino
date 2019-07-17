@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/lightninglabs/neutrino/blockntfns"
 	"github.com/picfight/pfcd/chaincfg/chainhash"
 	"github.com/picfight/pfcd/wire"
+	"github.com/picfight/pfcneutrino/blockntfns"
 	"github.com/picfight/pfcwallet/wtxmgr"
 )
 

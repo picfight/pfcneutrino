@@ -3,10 +3,10 @@ package neutrino
 import (
 	"fmt"
 
-	"github.com/lightninglabs/neutrino/headerfs"
 	"github.com/picfight/pfcd/blockchain"
 	"github.com/picfight/pfcd/chaincfg/chainhash"
 	"github.com/picfight/pfcd/wire"
+	"github.com/picfight/pfcneutrino/headerfs"
 	"github.com/picfight/pfcwallet/waddrmgr"
 )
 

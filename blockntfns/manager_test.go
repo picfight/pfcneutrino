@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lightninglabs/neutrino/blockntfns"
 	"github.com/picfight/pfcd/wire"
+	"github.com/picfight/pfcneutrino/blockntfns"
 )
 
 var emptyHeader wire.BlockHeader

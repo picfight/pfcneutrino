@@ -1,8 +1,8 @@
 package cache
 
 import (
-	"github.com/lightninglabs/neutrino/filterdb"
 	"github.com/picfight/pfcd/chaincfg/chainhash"
+	"github.com/picfight/pfcneutrino/filterdb"
 	"github.com/picfight/pfcutil/gcs"
 )
 

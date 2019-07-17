@@ -2,12 +2,12 @@ package neutrino
 
 import (
 	"github.com/btcsuite/btclog"
-	"github.com/lightninglabs/neutrino/blockntfns"
-	"github.com/lightninglabs/neutrino/pushtx"
 	"github.com/picfight/pfcd/addrmgr"
 	"github.com/picfight/pfcd/blockchain"
 	"github.com/picfight/pfcd/peer"
 	"github.com/picfight/pfcd/txscript"
+	"github.com/picfight/pfcneutrino/blockntfns"
+	"github.com/picfight/pfcneutrino/pushtx"
 )
 
 // log is a logger that is initialized with no output filters.  This

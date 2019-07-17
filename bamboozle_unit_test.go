@@ -7,11 +7,11 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/lightninglabs/neutrino/headerfs"
 	"github.com/picfight/pfcd/chaincfg"
 	"github.com/picfight/pfcd/chaincfg/chainhash"
 	"github.com/picfight/pfcd/txscript"
 	"github.com/picfight/pfcd/wire"
+	"github.com/picfight/pfcneutrino/headerfs"
 	"github.com/picfight/pfcutil/gcs"
 	"github.com/picfight/pfcutil/gcs/builder"
 	"github.com/picfight/pfcwallet/walletdb"
