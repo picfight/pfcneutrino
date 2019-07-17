@@ -11,6 +11,7 @@ go:
 sudo: false
 before_install:
   - chmod +x ./pfcd_checkout.sh
+  - chmod +x ./gotest.sh
 install:
   - export PATH=$PATH:$PWD/linux-amd64/
   - mkdir -p $GOPATH/src/github.com/picfight/
