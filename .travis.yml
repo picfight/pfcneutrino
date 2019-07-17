@@ -3,20 +3,20 @@ cache:
   directories:
     - $GOCACHE
     - $GOPATH/pkg/mod
-    - $GOPATH/src/github.com/btcsuite
+    - $GOPATH/src/github.com/picfight
     - $GOPATH/src/github.com/golang
     - $GOPATH/src/gopkg.in/alecthomas
 go:
   - "1.12.x"
 sudo: false
 before_install:
-  - chmod +x ./goclean.sh
+  - chmod +x ./pfcd_checkout.sh
 install:
   - export PATH=$PATH:$PWD/linux-amd64/
-  - mkdir -p $GOPATH/src/github.com/btcsuite/
+  - mkdir -p $GOPATH/src/github.com/picfight/
   - go get -d github.com/picfight/pfcd
   - pushd $GOPATH/src/github.com/picfight/pfcd
-  - $GOPATH/src/github.com/lightninglabs/neutrino/pfcd_checkout.sh
+  - $GOPATH/src/github.com/picfight/pfcneutrino/pfcd_checkout.sh
   - go install . ./cmd/...
   - popd
 env:
