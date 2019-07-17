@@ -1,0 +1,29 @@
+language: go
+cache:
+  directories:
+    - $GOCACHE
+    - $GOPATH/pkg/mod
+    - $GOPATH/src/github.com/btcsuite
+    - $GOPATH/src/github.com/golang
+    - $GOPATH/src/gopkg.in/alecthomas
+go:
+  - "1.12.x"
+sudo: false
+before_install:
+  - chmod +x ./goclean.sh
+install:
+  - export PATH=$PATH:$PWD/linux-amd64/
+  - mkdir -p $GOPATH/src/github.com/btcsuite/
+  - go get -d github.com/picfight/pfcd
+  - pushd $GOPATH/src/github.com/picfight/pfcd
+  - $GOPATH/src/github.com/lightninglabs/neutrino/pfcd_checkout.sh
+  - go install . ./cmd/...
+  - popd
+env:
+  matrix:
+    - RACE=false
+    - RACE=true
+script:
+  - export GO111MODULE=on
+  - export PATH=$PATH:$GOPATH/bin
+  - ./gotest.sh
