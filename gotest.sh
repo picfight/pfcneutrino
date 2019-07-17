@@ -52,8 +52,8 @@ test_with_coverage_profile() {
             go get github.com/mattn/goveralls
         fi
 
-        print "** Submit the test coverage result to coveralls.io"
-        goveralls -coverprofile=profile.cov -service=travis-ci
+        # print "** Submit the test coverage result to coveralls.io"
+        # goveralls -coverprofile=profile.cov -service=travis-ci
     fi
 }
 
