@@ -19,7 +19,7 @@ var (
 	// picfightcoinTip is the key which tracks the "tip" of the block header
 	// chain. The value of this key will be the current block hash of the
 	// best known chain that we're synced to.
-	bitcoinTip = []byte("bitcoin")
+	picfightcoinTip = []byte("bitcoin")
 
 	// regFilterTip is the key which tracks the "tip" of the regular
 	// compact filter header chain. The value of this key will be the

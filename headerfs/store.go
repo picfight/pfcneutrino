@@ -495,7 +495,7 @@ func (h *blockHeaderStore) CheckConnectivity() error {
 
 		// With the header bucket retrieved, we'll now fetch the chain
 		// tip so we can start our backwards scan.
-		tipHash := rootBucket.Get(bitcoinTip)
+		tipHash := rootBucket.Get(picfightcoinTip)
 		tipHeightBytes := rootBucket.Get(tipHash)
 
 		// With the height extracted, we'll now read the _last_ block
