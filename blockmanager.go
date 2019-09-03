@@ -12,7 +12,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/picfight/pfcd/blockchain"
+	"github.com/picfight/pfcd/blockchainutil"
 	"github.com/picfight/pfcd/chaincfg"
 	"github.com/picfight/pfcd/chaincfg/chainhash"
 	"github.com/picfight/pfcd/txscript"
@@ -2643,7 +2643,7 @@ func (b *blockManager) checkHeaderSanity(blockHeader *wire.BlockHeader,
 		Header: *blockHeader,
 	})
 	err = blockchain.CheckProofOfWork(stubBlock,
-		blockchain.CompactToBig(diff))
+		blockchainutil.CompactToBig(diff))
 	if err != nil {
 		return err
 	}
@@ -2730,7 +2730,7 @@ func (b *blockManager) calcNextRequiredDifficulty(newBlockTime time.Time,
 	// The result uses integer division which means it will be slightly
 	// rounded down.  Picfightcoind also uses integer division to calculate this
 	// result.
-	oldTarget := blockchain.CompactToBig(lastNode.Header.Bits)
+	oldTarget := blockchainutil.CompactToBig(lastNode.Header.Bits)
 	newTarget := new(big.Int).Mul(oldTarget, big.NewInt(adjustedTimespan))
 	targetTimeSpan := int64(b.server.chainParams.TargetTimespan /
 		time.Second)
@@ -2745,11 +2745,11 @@ func (b *blockManager) calcNextRequiredDifficulty(newBlockTime time.Time,
 	// intentionally converting the bits back to a number instead of using
 	// newTarget since conversion to the compact representation loses
 	// precision.
-	newTargetBits := blockchain.BigToCompact(newTarget)
+	newTargetBits := blockchainutil.BigToCompact(newTarget)
 	log.Debugf("Difficulty retarget at block height %d", lastNode.Height+1)
 	log.Debugf("Old target %08x (%064x)", lastNode.Header.Bits, oldTarget)
 	log.Debugf("New target %08x (%064x)", newTargetBits,
-		blockchain.CompactToBig(newTargetBits))
+		blockchainutil.CompactToBig(newTargetBits))
 	log.Debugf("Actual timespan %v, adjusted timespan %v, target timespan %v",
 		time.Duration(actualTimespan)*time.Second,
 		time.Duration(adjustedTimespan)*time.Second,
