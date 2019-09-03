@@ -1280,6 +1280,7 @@ func (s *ChainService) GetBlock(blockHash chainhash.Hash,
 				// the sanity check, the peer is trying to
 				// bamboozle us. Disconnect it.
 				if err := blockchain.CheckBlockSanity(
+					&s.chainParams,
 					block,
 					// We don't need to check PoW because
 					// by the time we get here, it's been
