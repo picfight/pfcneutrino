@@ -634,12 +634,20 @@ func testStartRescan(harness *neutrinoHarness, t *testing.T) {
 
 	// Generate a block with a nonstandard coinbase to generate a basic
 	// filter with 0 entries.
-	_, err = harness.h1.NodeRPCClient().Internal().(*rpcclient.Client).GenerateAndSubmitBlockWithCustomCoinbaseOutputs(
-		[]*pfcutil.Tx{}, BlockVersion, time.Time{},
-		[]wire.TxOut{{
+	//[]*pfcutil.Tx{}, BlockVersion, time.Time{},
+	args := &pfcharness.GenerateBlockArgs{
+		Txns:         nil,
+		BlockVersion: BlockVersion,
+		BlockTime:    time.Time{},
+		MineTo: []wire.TxOut{{
 			Value:    0,
 			PkScript: []byte{},
-		}})
+		}},
+		MiningAddress: harness.h1.MiningAddress.(pfcutil.Address),
+		Network:       harness.h1.Node.Network().(*chaincfg.Params),
+	}
+	_, err = pfcharness.GenerateAndSubmitBlockWithCustomCoinbaseOutputs(harness.h1.NodeRPCClient(), args)
+
 	if err != nil {
 		t.Fatalf("Couldn't generate/submit block: %s", err)
 	}
@@ -770,7 +778,7 @@ func testRescanResults(harness *neutrinoHarness, t *testing.T) {
 	}
 
 	err = coinharness.JoinNodes([]*coinharness.Harness{harness.h1, harness.h2},
-		rpctest.Blocks)
+		coinharness.Blocks)
 	if err != nil {
 		t.Fatalf("Couldn't sync h1 and h2: %s", err)
 	}
@@ -1038,47 +1046,17 @@ func TestNeutrinoSync(t *testing.T) {
 	rpcclient.UseLogger(rpcLogger)
 
 	// Create a pfcd SimNet node and generate 800 blocks
-	h1, err := NewHarness(
-		&chaincfg.SimNetParams, []string{"--txindex"},
-	)
-	if err != nil {
-		t.Fatalf("Couldn't create harness: %s", err)
-	}
-	defer h1.TearDown()
-	err = h1.SetUp(false, 0)
-	if err != nil {
-		t.Fatalf("Couldn't set up harness: %s", err)
-	}
-	_, err = h1.NodeRPCClient().Generate(800)
+	h1 := ObtainHarness("H1")
+	_, err := h1.NodeRPCClient().Generate(800)
 	if err != nil {
 		t.Fatalf("Couldn't generate blocks: %s", err)
 	}
 
 	// Create a second pfcd SimNet node
-	h2, err := NewHarness(
-		&chaincfg.SimNetParams, []string{"--txindex"},
-	)
-	if err != nil {
-		t.Fatalf("Couldn't create harness: %s", err)
-	}
-	defer h2.TearDown()
-	err = h2.SetUp(false, 0)
-	if err != nil {
-		t.Fatalf("Couldn't set up harness: %s", err)
-	}
+	h2 := ObtainHarness("H2")
 
 	// Create a third pfcd SimNet node and generate 1200 blocks
-	h3, err := NewHarness(
-		&chaincfg.SimNetParams, []string{"--txindex"},
-	)
-	if err != nil {
-		t.Fatalf("Couldn't create harness: %s", err)
-	}
-	defer h3.TearDown()
-	err = h3.SetUp(false, 0)
-	if err != nil {
-		t.Fatalf("Couldn't set up harness: %s", err)
-	}
+	h3 := ObtainHarness("H3")
 	_, err = h3.NodeRPCClient().Generate(1200)
 	if err != nil {
 		t.Fatalf("Couldn't generate blocks: %s", err)
@@ -1173,18 +1151,11 @@ func TestNeutrinoSync(t *testing.T) {
 // reorg testing. It brings up and tears down a temporary node, otherwise the
 // nodes try to reconnect to each other which results in unintended reorgs.
 func csd(harnesses []*coinharness.Harness) error {
-	hTemp, err := rpctest.New(&chaincfg.SimNetParams, nil, nil)
-	if err != nil {
-		return err
-	}
+	hTemp := testSetup.Simnet00.NewInstance("HTemp").(*coinharness.Harness)
 	// Tear down node at the end of the function.
-	defer hTemp.TearDown()
-	err = hTemp.SetUp(false, 0)
-	if err != nil {
-		return err
-	}
+	defer testSetup.Simnet00.Dispose(hTemp)
 	for _, harness := range harnesses {
-		err = coinharness.ConnectNode(hTemp, harness, rpcclient.ANAdd)
+		err := coinharness.ConnectNode(hTemp, harness, rpcclient.ANAdd)
 		if err != nil {
 			return err
 		}
@@ -1534,8 +1505,4 @@ func goroutineDump() string {
 	buf := make([]byte, 1<<18)
 	runtime.Stack(buf, true)
 	return string(buf)
-}
-
-func NewHarness(params *chaincfg.Params, args []string) (*coinharness.Harness, error) {
-	return nil, nil
 }
