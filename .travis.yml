@@ -14,6 +14,7 @@ before_install:
   - chmod +x ./gotest.sh
 install:
   - export PATH=$PATH:$PWD/linux-amd64/
+  - export GO111MODULE=on
   - go build ./...
   - go install . ./cmd/...
 env:
