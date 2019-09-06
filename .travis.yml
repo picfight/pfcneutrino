@@ -17,6 +17,7 @@ install:
   - mkdir -p $GOPATH/src/github.com/picfight/
   - rm -r -f $GOPATH/src/github.com/picfight/
   - mkdir -p $GOPATH/src/github.com/picfight/
+  - cd $GOPATH/src/
   - go get -d github.com/picfight/pfcd
   - pushd $GOPATH/src/github.com/picfight/pfcd
   - $GOPATH/src/github.com/picfight/pfcneutrino/pfcd_checkout.sh
