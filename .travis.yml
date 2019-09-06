@@ -16,7 +16,7 @@ install:
   - export PATH=$PATH:$PWD/linux-amd64/
   - mkdir -p $GOPATH/src/github.com/picfight/
   - rm -r -f $GOPATH/src/github.com/picfight/
-  - mkdir -p $GOPATH/src/github.com/picfight/
+  - mkdir -p $GOPATH/src/github.com/picfight/pfcd
   - cd $GOPATH/src/
   - go get -d github.com/picfight/pfcd
   - pushd $GOPATH/src/github.com/picfight/pfcd
